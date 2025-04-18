@@ -1,18 +1,33 @@
-!/bin/bash
+#!/bin/bash
 
-# Automatischer Git-Commit & Push
-echo "🔄 Änderungen werden erfasst..."
+echo "=============================="
+echo "  Git Quick Push (Linux/Mac)"
+echo "=============================="
+echo
 
-# Dateien zum Commit hinzufügen
+# Schritt 1: Änderungen von GitHub holen
+echo "🔄 Änderungen von GitHub abrufen..."
+git pull --rebase
+
+# Schritt 2: Dateien zum Commit hinzufügen
+echo "📁 Änderungen für Commit vormerken..."
 git add .
 
-# Abfrage für Commit-Nachricht
+# Schritt 3: Prüfen, ob es überhaupt Änderungen gibt
+if git diff --cached --quiet; then
+    echo "⚠️  Keine Änderungen zum Commit. Abbruch."
+    exit 0
+fi
+
+# Schritt 4: Commit-Nachricht abfragen
 read -p "📝 Commit-Nachricht: " msg
 
-# Commit ausführen
+# Schritt 5: Commit ausführen
 git commit -m "$msg"
 
-# Änderungen pushen
+# Schritt 6: Push zu GitHub
+echo "🚀 Änderungen werden gepusht..."
 git push
 
-echo "✅ Alles erfolgreich gepusht!"
+echo
+echo "✅ Synchronisation mit GitHub abgeschlossen!"
