@@ -90,27 +90,6 @@ def add_file_type():
     update_supported_filetypes_label()  # Update the label
     messagebox.showinfo("Success", f"File type {new_ext} has been added and saved.")
 
-def delete_file_type():
-    """Allows the user to delete a file type."""
-    if not destinations:
-        messagebox.showinfo("Info", "No file types to delete.")
-        return
-
-    # Ask the user to select a file type to delete
-    file_type_to_delete = simpledialog.askstring(
-        "Delete File Type", 
-        f"Enter the file extension to delete (e.g., .txt):\nSupported: {', '.join(destinations.keys())}"
-    )
-    if not file_type_to_delete or file_type_to_delete not in destinations:
-        messagebox.showerror("Error", "Invalid or non-existent file type entered.")
-        return
-
-    # Remove the file type and update settings
-    del destinations[file_type_to_delete]
-    save_settings(destinations)
-    update_supported_filetypes_label()  # Update the label
-    messagebox.showinfo("Success", f"File type {file_type_to_delete} has been deleted.")
-
 def delete_file_types_with_checkboxes():
     """Allows the user to delete multiple file types using checkboxes."""
     if not destinations:
@@ -122,6 +101,24 @@ def delete_file_types_with_checkboxes():
     delete_window.title("Delete File Types")
     delete_window.geometry("300x400")
     delete_window.resizable(False, False)
+
+    # Create a frame to hold the checkboxes and allow scrolling
+    frame = tk.Frame(delete_window)
+    frame.pack(fill="both", expand=True)
+
+    # Create a canvas to enable scrolling
+    canvas = tk.Canvas(frame)
+    canvas.pack(side="left", fill="both", expand=True)
+
+    # Create a vertical scrollbar linked to the canvas
+    scrollbar = tk.Scrollbar(frame, orient="vertical", command=canvas.yview)
+    scrollbar.pack(side="right", fill="y")
+
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    # Create a scrollable window inside the canvas
+    scrollable_frame = tk.Frame(canvas)
+    canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
 
     # Dictionary to store the state of each checkbox
     checkbox_vars = {}
@@ -152,11 +149,16 @@ def delete_file_types_with_checkboxes():
         delete_window.destroy()
 
     # Create checkboxes for each file type
-    tk.Label(delete_window, text="Select file types to delete:", pady=10).pack()
+    tk.Label(scrollable_frame, text="Select file types to delete:", pady=10).pack()
+
     for ext in destinations.keys():
         var = tk.IntVar()
         checkbox_vars[ext] = var
-        tk.Checkbutton(delete_window, text=ext, variable=var).pack(anchor="w")
+        tk.Checkbutton(scrollable_frame, text=ext, variable=var).pack(anchor="w")
+
+    # Update the scroll region to accommodate all the checkboxes
+    scrollable_frame.update_idletasks()
+    canvas.config(scrollregion=canvas.bbox("all"))
 
     # Add buttons for "Select All", "Deselect All", and "Delete"
     tk.Button(delete_window, text="Select All", command=select_all).pack(pady=5)
