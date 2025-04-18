@@ -66,8 +66,16 @@ def update_supported_filetypes_label():
 def add_file_type():
     # Ask the user for a new file extension
     new_ext = simpledialog.askstring("Add New File Type", "Enter the file extension (e.g., .txt):")
+    
     if not new_ext or not new_ext.startswith("."):
-        messagebox.showerror("Error", "Invalid file extension entered.")
+        messagebox.showerror("Error", "Invalid file extension entered. It should start with a dot (e.g., .txt).")
+        return
+
+    # Strip spaces and validate the extension
+    new_ext = new_ext.strip()
+
+    if not new_ext[1:].isalnum():  # Check if the extension contains only alphanumeric characters after the dot
+        messagebox.showerror("Error", "Invalid file extension entered. It should contain only alphanumeric characters (e.g., .txt, .jpg).")
         return
 
     # Select the target folder for the new file type
