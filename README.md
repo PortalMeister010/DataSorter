@@ -1,42 +1,76 @@
-# 📦 Portal File Manager v1.0
+# 📁 Portal File Manager
 
-**Initial stable release** of the Portal File Manager — a simple and user-friendly tool to sort files into target folders based on their extensions.
-
----
+**Portal File Manager** is a lightweight desktop application that helps you organize files by sorting them into folders based on their extensions.  
+Built with Python and Tkinter, it's designed to be simple, flexible, and easy to use.
 
 ## ✨ Features
 
-- 📁 **Multi-file upload** with automatic sorting by file type  
-- ⚙️ **Custom file type settings** — assign folders to any file extension  
-- ➕ **Add new file types** through an intuitive GUI  
-- ❌ **Delete file types** — individually or via checkboxes for multiple selection  
-- 🧾 **Persistent settings** stored in a local `settings.json` file  
-- 🖱️ Clean and accessible GUI built with Tkinter  
-- 📜 **Scrollable list** for easy navigation of many file types  
+- 📂 Multi-file upload with automatic sorting  
+- ⚙️ Custom file type settings (e.g., `.jpg` → `Pictures`, `.pdf` → `Documents`)  
+- ➕ Add new file types via the GUI  
+- ❌ Delete file types one by one or with checkboxes  
+- 💾 Settings saved persistently in a local `settings.json` file  
+- 🖥️ Clean graphical interface built with Tkinter  
+- 📜 Scrollable support for managing many file types  
 
----
+## 🚀 Getting Started
 
-## 🛠️ How to Use
+### Requirements
 
-1. Launch the app (`python portal_file_manager.py`)  
-2. Use **"Add File Type"** to assign file extensions (e.g., `.pdf`, `.jpg`) to target folders  
-3. Click **"Choose Data"** to upload files and sort them automatically  
-4. Adjust or remove file type settings anytime through the GUI  
+- Python 3.x  
+- Tkinter (usually included with Python)
 
----
+### Run the app
 
-## 📌 Notes
+```bash
+git clone https://github.com/your-username/portal-file-manager.git
+cd portal-file-manager
+python portal_file_manager.py
+```
 
-- All configuration is saved automatically in the `settings.json` file  
-- This tool is intended for local desktop environments (Windows/Linux)  
-- No admin rights or installation required — runs as a standalone script  
+## 🛠️ How It Works
 
----
+1. Add file type rules (e.g., `.png` → `D:\Images`)  
+2. Click "Choose Data" and select files to upload  
+3. Files will be copied to the matching folders based on their extensions  
+4. Modify or delete file type rules at any time  
 
-## 💡 Coming Soon (planned for future versions)
+## 💼 Configuration
+
+Settings are stored in a local file called `settings.json`.  
+This allows the app to remember your file type assignments between sessions.
+
+### Example
+
+```json
+{
+  ".pdf": "D:\\Documents\\PDFs\\",
+  ".jpg": "D:\\Pictures\\"
+}
+```
+
+## 💡 Planned Features
 
 - Drag & Drop support  
 - File preview thumbnails  
-- Export/Import of settings  
-- Cross-platform packaging (`.exe`, `.app`, etc.)
+- Export/import of settings  
+- Predefined templates for common file types  
+- Better cross-platform support (Windows/Linux/macOS)
 
+## 📦 Packaging (Optional)
+
+To build a standalone `.exe` using PyInstaller:
+
+```bash
+pyinstaller --noconfirm --onefile --windowed portal_file_manager.py --icon=icon.ico
+```
+
+## 📄 License
+
+This project is licensed under the MIT License.  
+Feel free to use, modify, and distribute it.
+
+## 🙌 Contributions
+
+Contributions are welcome!  
+If you have ideas, improvements, or bug fixes, feel free to open an issue or a pull request.
