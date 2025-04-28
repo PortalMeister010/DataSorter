@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment / virtualenv
+.env
+.venv/
+env/
+venv/
+
+# VS Code settings
+.vscode/
+
+# Mac OS and Windows system files
+.DS_Store
+Thumbs.db
+
+# Local scripts you don't want to upload
+local_dev_setup.sh
+gitquick.bat
+
+# Build files (falls du später ein .exe machst)
+build/
+dist/
+*.spec
+
+# Settings file
+settings.json
